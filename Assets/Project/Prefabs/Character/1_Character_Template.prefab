@@ -49,6 +49,11 @@ MonoBehaviour:
   maxHealth: 20
   damage: 1
   regeneration: 1
+  critChance: 5
+  critDamage: 150
   maxExperience: 50
+  goldBonus: 100
+  equipmentSlotsSize: 6
   lvlup_health: 1
   lvlup_damage: 0.5
+  lvlup_regeneration: 0.2

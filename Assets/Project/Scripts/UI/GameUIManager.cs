@@ -24,10 +24,12 @@ public class GameUIManager : MonoBehaviour, ITickable
         if (!debugInventory) return;
 
         List<Item> inventoryList = GameManager.Instance.Inventory.ToList();
+        string items = "";
         foreach (Item item in inventoryList)
         {
-            print($"Name: {item.Name}, Rarity: {item.Rarity}");
+            items += $"[{item.Name}|{item.Rarity}], ";
         }
+        print(items);
     }
     
     private void UpdateUnits()

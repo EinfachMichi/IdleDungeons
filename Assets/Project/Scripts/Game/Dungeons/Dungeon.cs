@@ -34,7 +34,7 @@ public class Dungeon : MonoBehaviour, ITickable
 
     private void DungeonComplete()
     {
-        GameManager.Instance.AddGold(lootTable.GoldDrop());
+        GameManager.Instance.AddGold(lootTable.GoldDrop() * character.GoldBonus);
         GameManager.Instance.AddLoot(lootTable.ItemDrop());
         print("Dungeon Complete!");
         
@@ -92,7 +92,7 @@ public class Dungeon : MonoBehaviour, ITickable
     private void OnEnemyDeath(Enemy enemy)
     {
         character.AddExperience(enemy.ExperienceDrop);
-        GameManager.Instance.AddGold(enemy.GoldDrop);
+        GameManager.Instance.AddGold(enemy.GoldDrop * character.GoldBonus);
         Destroy(enemy.gameObject);
         InitEnemy();
     }

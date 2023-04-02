@@ -1,6 +1,6 @@
 public class Relict : Item
 {
-    public Buff Buff => buff;
+    public float GoldBonus => buff.GoldBuff;
     
     private Buff buff;
     

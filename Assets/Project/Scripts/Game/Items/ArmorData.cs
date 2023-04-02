@@ -5,4 +5,5 @@ public class ArmorData : ItemData
 {
     public float extraHealth;
     public float extraRegeneration;
+    public ArmorType armorType;
 }

@@ -15,8 +15,7 @@ public class GameManager : MonoBehaviour
     private Inventory<Item> inventory;
 
     #region Events / Tick-Handeling
-    public static event Action<Dungeon> OnDungeonEntered;
-    
+
     private const float TickSpeed = 1;
     
     private List<ITickable> tickables = new();
@@ -57,14 +56,13 @@ public class GameManager : MonoBehaviour
     #region Character
 
     [SerializeField] private List<Character> characterArchive;
-    private List<Character> ownedCharacters = new();
     public List<Character> OwnedCharacters => ownedCharacters;
-    public Character LatestCharacter => OwnedCharacters.Last();
+    private List<Character> ownedCharacters = new();
     public int OwnedCharacterCount => ownedCharacters.Count;
 
     public void UnlockNewCharacter()
     {
-        if (OwnedCharacters.Count >= characterArchive.Count) return;
+        if (OwnedCharacterCount >= characterArchive.Count) return;
         
         Character newCharacter = Instantiate(characterArchive[ownedCharacters.Count]);
         newCharacter.name = newCharacter.Name;
@@ -105,8 +103,6 @@ public class GameManager : MonoBehaviour
         dungeon.StartDungeon(ownedCharacters[characterIndex]);
         runningDungeons.Add(dungeon);
         dungeon.OnDungeonDone += ExitDungeon;
-        
-        OnDungeonEntered?.Invoke(dungeon);
     }
 
     private void ExitDungeon(Dungeon dungeon)

@@ -37,12 +37,12 @@ public struct LootTable
     }
     
     [Serializable]
-    public struct Drop
+    struct Drop
     {
         public float ChanceToActivate => chanceToActivate;
         
-        public ItemDrop[] itemDrops;
-        public float chanceToActivate;
+        [SerializeField] private ItemDrop[] itemDrops;
+        [SerializeField] private float chanceToActivate;
         
         public Item GetItem()
         {
@@ -64,7 +64,7 @@ public struct LootTable
         }
 
         [Serializable]
-        public struct ItemDrop
+        struct ItemDrop
         {
             public ItemData itemData;
             public float dropChance;

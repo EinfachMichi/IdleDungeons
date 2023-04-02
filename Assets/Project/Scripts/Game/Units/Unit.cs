@@ -10,6 +10,8 @@ public abstract class Unit : MonoBehaviour, ITickable
     public float Health => currentHealth;
     public float Damage => damage;
     public float Regeneration => regeneration;
+    public float CritChance => critChance;
+    public float CritDamage => critDamage;
     public bool IsAlive => isAlive;
     
     [SerializeField] protected new string name;
@@ -17,12 +19,14 @@ public abstract class Unit : MonoBehaviour, ITickable
     [SerializeField] protected float maxHealth;
     [SerializeField] protected float damage;
     [SerializeField] protected float regeneration;
+    [SerializeField] protected float critChance;
+    [SerializeField] protected float critDamage;
     protected float currentHealth;
     protected bool isAlive = true;
     
     protected int currentRegenerationTick;
 
-    private void Start()
+    protected virtual void Start()
     {
         currentHealth = MaxHealth;
         
@@ -46,8 +50,14 @@ public abstract class Unit : MonoBehaviour, ITickable
     public void ApplyDamage(Unit target)
     {
         if (!isAlive) return;
-        
-        target.ReceiveDamage(Damage);
+
+        float realDamage = Damage;
+        float crit = Random.Range(0f, 100f);
+        if (critChance <= crit)
+        {
+            realDamage *= critDamage / 100f;
+        }
+        target.ReceiveDamage(realDamage);
     }
 
     public float ReceiveDamage(float damage)
