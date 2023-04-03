@@ -54,7 +54,7 @@ public class GameUIManager : MonoBehaviour, ITickable
             print($"Name: {unit.name}, " +
                   $"Level: {unit.Level}, " +
                   $"Health: {unit.Health}/{unit.MaxHealth}, " + 
-                  $"Damage: {unit.Damage}, " +
+                  //$"Damage: {unit.Damage}, " +
                   $"Alive: {unit.IsAlive}"
             );
         }

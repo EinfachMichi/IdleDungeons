@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -112,14 +110,10 @@ public class GameManager : MonoBehaviour
         Destroy(dungeon.gameObject);
     }
 
-    public void AddGold(float value)
+    public void AddLoot(Loot loot)
     {
-        gold += value;
-    }
-
-    public void AddLoot(List<Item> items)
-    {
-        foreach (Item item in items)
+        gold += loot.Gold;
+        foreach (Item item in loot.Items)
         {
             inventory.AddItem(item);
         }

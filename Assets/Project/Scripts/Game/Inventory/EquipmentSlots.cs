@@ -7,9 +7,9 @@ public class EquipmentSlots
     
     private Item[] items;
 
-    public EquipmentSlots(int size)
+    public EquipmentSlots()
     {
-        items = new Item[size];
+        items = new Item[6];
     }
 
     public void SetItemAtSlot(Item item, int index)
@@ -25,7 +25,7 @@ public class EquipmentSlots
     {
         if (index >= items.Length) return;
         
-        OnItemEquipped?.Invoke(items[index]);
+        OnItemUnequipped?.Invoke(items[index]);
         items[index] = null;
     }
 }

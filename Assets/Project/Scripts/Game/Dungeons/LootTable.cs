@@ -1,105 +1,123 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[Serializable]
-public struct LootTable
+[CreateAssetMenu(fileName = "New LootTable", menuName = "New LootTable")]
+public class LootTable : ScriptableObject
 {
     [SerializeField] private Vector2 goldRange;
-    [SerializeField] private Drop firstDrop;
-    [SerializeField] private Drop secondDrop;
-    [SerializeField] private Drop thirdDrop;
+    [SerializeField] private ItemPool[] itemPools;
 
-    public float GoldDrop()
+    private int LastPoolIndex => itemPools.Length - 1;
+
+    public Loot DropLoot()
     {
-        return Mathf.RoundToInt(Random.Range(goldRange.x, goldRange.y));
+        Loot loot = new Loot(GetRandomGold(), new List<Item>());
+
+        int drops = Drops();
+        for (int i = 0; i < drops; i++)
+        {
+            loot.AddItem(GetRandomItem(itemPools[i]));
+        }
+
+        return loot;
     }
 
-    public List<Item> ItemDrop()
+    private float GetRandomGold() => (int) Random.Range(goldRange.x, goldRange.y);
+    
+    private int Drops()
     {
-        List<Item> items = new();
+        for (int i = LastPoolIndex; i >= 0; i--)
+        {
+            float chance = Random.Range(0f, 1f);
+            float unlockChance = GetChance(i);
+            if (chance <= unlockChance)
+            {
+                return i + 1;
+            }
+        }
+        return 0;
+        
+        float GetChance(int length)
+        {
+            float chance = itemPools[0].chanceToUnlock;
+            for (int i = 1; i <= length; i++)
+            {
+                chance *= itemPools[i].chanceToUnlock;
+            }
+            return chance;
+        }
+    }
 
-        float firstDropChance = Random.Range(0f, 100f);
-        if (firstDropChance > firstDrop.ChanceToActivate) return items;
-        items.Add(firstDrop.GetItem());
-        
-        float secondDropChance = Random.Range(0f, 100f); 
-        if (secondDropChance > secondDrop.ChanceToActivate) return items;
-        items.Add(secondDrop.GetItem());
-        
-        float thirdDropChance = Random.Range(0f, 100f);
-        if (thirdDropChance > thirdDrop.ChanceToActivate) return items;
-        items.Add(thirdDrop.GetItem());
-        
-        return items;
+    public static Item GetRandomItem(ItemPool pool)
+    {
+        float rand = Random.Range(0f, 1f);
+
+        float start = 0;
+        foreach (ItemDrop drop in pool.items)
+        {
+            if (rand >= start && rand <= start + drop.dropChance)
+            {
+                Rarity itemRarity = GetRandomRarity();
+                Item itemDrop = GetItemType(drop.item, itemRarity);
+                return itemDrop;
+            }
+            start += drop.dropChance;
+        }
+
+        return null;
+    }
+
+    public static Item GetItemType(ItemData data, Rarity rarity)
+    {
+        Item newItem;
+        switch (data.ItemType)
+        {
+            case ItemType.Weapon:
+                newItem = new Weapon((WeaponData) data, rarity);
+                break;
+            case ItemType.Armor:
+                newItem = new Armor((ArmorData) data, rarity);
+                break;
+            case ItemType.Relict:
+                newItem = new Relict((RelictData) data, rarity);
+                break;
+            default:
+                newItem = null;
+                break;
+        }
+        return newItem;
+    }
+    
+    public static Rarity GetRandomRarity()
+    {
+        float chance = Random.Range(0f, 1f);
+        float start = 0;
+        for(int i = 0; i < RarityClass.Length; i++)
+        {
+            if (chance >= start && chance <= start + RarityClass.RarityChances[i])
+            {
+                return (Rarity) i;
+            }
+            start += RarityClass.RarityChances[i];
+        }
+        return Rarity.Common;
+    }
+
+    [Serializable]
+    public struct ItemPool
+    {
+        public ItemDrop[] items;
+        public float chanceToUnlock;
     }
     
     [Serializable]
-    struct Drop
+    public struct ItemDrop
     {
-        public float ChanceToActivate => chanceToActivate;
-        
-        [SerializeField] private ItemDrop[] itemDrops;
-        [SerializeField] private float chanceToActivate;
-        
-        public Item GetItem()
-        {
-            float range = itemDrops.Sum(t => t.dropChance);
-            float rand = Random.Range(0f, range);
-
-            float start = 0;
-            foreach (var drop in itemDrops)
-            {
-                if (rand >= start && rand <= start + drop.dropChance)
-                {
-                    return drop.Item();
-                }
-
-                start += drop.dropChance;
-            }
-
-            return null;
-        }
-
-        [Serializable]
-        struct ItemDrop
-        {
-            public ItemData itemData;
-            public float dropChance;
-            
-            public Item Item()
-            {
-                Rarity rarity = Rarity.Common;
-                float rarityChance = Random.Range(0f, 1f);
-                for (int i = 0; i < RarityClass.Length; i++)
-                {
-                    if (rarityChance < RarityClass.RarityChances[i])
-                    {
-                        rarity = (Rarity) i;
-                    }
-                }
-                
-                Item newItem;
-                switch (itemData.ItemType)
-                {
-                    case ItemType.Weapon:
-                        newItem = new Weapon((WeaponData) itemData, rarity);
-                        break;
-                    case ItemType.Armor:
-                        newItem = new Armor((ArmorData) itemData, rarity);
-                        break;
-                    case ItemType.Relict:
-                        newItem = new Relict((RelictData) itemData, rarity);
-                        break;
-                    default:
-                        newItem = null;
-                        break;
-                }
-
-                return newItem;
-            }
-        }
+        public ItemData item;
+        public float dropChance;
     }
 }

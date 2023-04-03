@@ -8,9 +8,12 @@ public class Dungeon : MonoBehaviour, ITickable
 
     public Enemy Enemy => enemy;
     public Character Character => character;
-    public int Difficulty => difficulty;
+    public Difficullty Difficulty => difficulty;
+
+    private float GoldBonus => character.GoldBonus;
     
-    [SerializeField] private int difficulty;
+    [SerializeField] private Difficullty difficulty;
+    [SerializeField] private int enemyLevel;
     [SerializeField] private List<Enemy> enemies;
     [SerializeField] private LootTable lootTable;
 
@@ -34,10 +37,10 @@ public class Dungeon : MonoBehaviour, ITickable
 
     private void DungeonComplete()
     {
-        GameManager.Instance.AddGold(lootTable.GoldDrop() * character.GoldBonus);
-        GameManager.Instance.AddLoot(lootTable.ItemDrop());
-        print("Dungeon Complete!");
+        Loot loot = lootTable.DropLoot();
+        GameManager.Instance.AddLoot(BonusGoldDrop(loot));
         
+        print("Dungeon Complete!");
         LeaveDungeon();
     }
     
@@ -71,7 +74,7 @@ public class Dungeon : MonoBehaviour, ITickable
         
         enemy = Instantiate(enemies[currentEnemyIndex]);
         enemy.transform.SetParent(transform);
-        enemy.ScaleByLevel(difficulty);
+        enemy.ScaleByLevel(enemyLevel);
         currentEnemyIndex++;
     
         enemy.OnEnemyDeath += OnEnemyDeath;
@@ -92,8 +95,17 @@ public class Dungeon : MonoBehaviour, ITickable
     private void OnEnemyDeath(Enemy enemy)
     {
         character.AddExperience(enemy.ExperienceDrop);
-        GameManager.Instance.AddGold(enemy.GoldDrop * character.GoldBonus);
+        
+        Loot loot = new Loot(enemy.GoldDrop);
+        GameManager.Instance.AddLoot(BonusGoldDrop(loot));
+        
         Destroy(enemy.gameObject);
         InitEnemy();
+    }
+
+    private Loot BonusGoldDrop(Loot loot)
+    {
+        loot.AddGold(loot.Gold * GoldBonus);
+        return loot;
     }
 }

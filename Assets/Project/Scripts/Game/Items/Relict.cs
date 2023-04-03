@@ -16,7 +16,6 @@ public class Relict : Item
 
     public override void ScaleWithRarity()
     {
-        float multiplier = GetRarityMultiplier((int) Rarity);
-        buff.MultiplyAllBuffs(multiplier);
+        buff.MultiplyAllBuffs(rarityMultiplier);
     }
 }

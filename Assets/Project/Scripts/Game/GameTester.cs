@@ -4,7 +4,7 @@ public class GameTester : MonoBehaviour
 {
     private int characterIndex;
     private int dungeonIndex;
-    
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))

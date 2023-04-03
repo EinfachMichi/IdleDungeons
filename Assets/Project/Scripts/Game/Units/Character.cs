@@ -5,16 +5,17 @@ public class Character : Unit
 {
     public event Action OnCharacterDeath;
 
-    public float GoldBonus => goldBonus / 100f;
+    public float GoldBonus => goldBonus;
     
     [SerializeField] private float maxExperience;
     [SerializeField] private float goldBonus;
-    [SerializeField] private int equipmentSlotsSize;
-    
+
     [Header("Levelup Stats")] 
     [SerializeField] private float lvlup_health = 1;
     [SerializeField] private float lvlup_damage = 0.5f;
     [SerializeField] private float lvlup_regeneration = 0.2f;
+    [SerializeField] private float lvlup_critChance = 1f;
+    [SerializeField] private float lvlup_critDamage = 10f;
     
 
     private float experience;
@@ -25,7 +26,7 @@ public class Character : Unit
     protected override void Start()
     {
         base.Start();
-        equipmentSlots = new EquipmentSlots(equipmentSlotsSize);
+        equipmentSlots = new EquipmentSlots();
         equipmentSlots.OnItemEquipped += AddItemStats;
         equipmentSlots.OnItemUnequipped += RemoveItemStats;
     }
@@ -33,14 +34,16 @@ public class Character : Unit
     public override void Tick()
     {
         base.Tick();
-        if (!isAlive)
+        if (!isAlive) DeathTime();
+    }
+
+    private void DeathTime()
+    {
+        deathTimer++;
+        if (deathTimer >= deathCooldown)
         {
-            deathTimer++;
-            if (deathTimer >= deathCooldown)
-            {
-                Heal();
-                deathTimer = 0;
-            }
+            Heal();
+            deathTimer = 0;
         }
     }
 
@@ -65,7 +68,9 @@ public class Character : Unit
         experience = 0;
         maxExperience += Mathf.Floor(maxExperience / 2);
         maxHealth += lvlup_health;
-        damage += lvlup_damage;
+        attackDamage += lvlup_damage;
+        critChance += lvlup_critChance;
+        critDamage += lvlup_critDamage;
         regeneration += lvlup_regeneration;
         
         Heal();
@@ -77,7 +82,7 @@ public class Character : Unit
         {
             case ItemType.Weapon:
                 Weapon weapon = (Weapon) item;
-                damage += weapon.AttackDamge;
+                attackDamage += weapon.AttackDamge;
                 critChance += weapon.CritChance;
                 critDamage += weapon.CritDamage;
                 break;
@@ -99,7 +104,7 @@ public class Character : Unit
         {
             case ItemType.Weapon:
                 Weapon weapon = (Weapon) item;
-                damage -= weapon.AttackDamge;
+                attackDamage -= weapon.AttackDamge;
                 critChance -= weapon.CritChance;
                 critDamage -= weapon.CritDamage;
                 break;

@@ -47,7 +47,9 @@ MonoBehaviour:
   name: 
   level: 1
   maxHealth: 5
-  damage: 1
   regeneration: 0.25
+  attackDamage: 1
+  critChance: 5
+  critDamage: 100
   experienceDrop: 5
   goldDrop: 1

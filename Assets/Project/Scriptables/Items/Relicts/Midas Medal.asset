@@ -15,4 +15,4 @@ MonoBehaviour:
   Name: Midas Medal
   ItemType: 2
   buff:
-    goldBuff: 10
+    goldBuff: 0.1

@@ -22,7 +22,9 @@ public class Enemy : Unit
     {
         this.level = level;
         maxHealth *= level;
-        damage *= level;
+        attackDamage *= level;
+        critChance += level;
+        critDamage *= level;
         regeneration *= level;
         goldDrop *= level;
         experienceDrop *= level;

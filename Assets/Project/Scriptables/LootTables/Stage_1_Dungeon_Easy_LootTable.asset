@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1209a230ae524b6096e1b2ec274ddb7b, type: 3}
+  m_Name: Stage_1_Dungeon_Easy_LootTable
+  m_EditorClassIdentifier: 
+  goldRange: {x: 5, y: 10}
+  itemPools:
+  - items:
+    - item: {fileID: 11400000, guid: 133dc27c9d3353c46bd5f03efd20e5dd, type: 2}
+      dropChance: 0.4
+    - item: {fileID: 11400000, guid: ff015660cac603b40bf344c2648ff52c, type: 2}
+      dropChance: 0.15
+    - item: {fileID: 11400000, guid: bfffd8d763930c8459c2c96c72159bf1, type: 2}
+      dropChance: 0.15
+    - item: {fileID: 11400000, guid: 2f202560cc92c4b4ca2cea923b8362df, type: 2}
+      dropChance: 0.15
+    - item: {fileID: 11400000, guid: 3e70f081259344c46ba6f94aec6abff7, type: 2}
+      dropChance: 0.15
+    chanceToUnlock: 0.75
+  - items:
+    - item: {fileID: 11400000, guid: 133dc27c9d3353c46bd5f03efd20e5dd, type: 2}
+      dropChance: 0.15
+    - item: {fileID: 11400000, guid: ff015660cac603b40bf344c2648ff52c, type: 2}
+      dropChance: 0.15
+    - item: {fileID: 11400000, guid: bfffd8d763930c8459c2c96c72159bf1, type: 2}
+      dropChance: 0.15
+    - item: {fileID: 11400000, guid: 2f202560cc92c4b4ca2cea923b8362df, type: 2}
+      dropChance: 0.15
+    - item: {fileID: 11400000, guid: 3e70f081259344c46ba6f94aec6abff7, type: 2}
+      dropChance: 0.15
+    - item: {fileID: 11400000, guid: 009cb78ff54eef94c834ef53aefaa5bd, type: 2}
+      dropChance: 0.05
+    - item: {fileID: 11400000, guid: 29d3a90c18f2bc0489f649cbc2c54c69, type: 2}
+      dropChance: 0.05
+    - item: {fileID: 11400000, guid: ec43cb6436910d843a8c819b9e640b56, type: 2}
+      dropChance: 0.05
+    - item: {fileID: 11400000, guid: 982e5acf41056674fabd9ac5ba3cc6d8, type: 2}
+      dropChance: 0.05
+    - item: {fileID: 11400000, guid: e142a6e4693f0df4d8dd2509707f33f4, type: 2}
+      dropChance: 0.05
+    chanceToUnlock: 0.5
+  - items:
+    - item: {fileID: 11400000, guid: 009cb78ff54eef94c834ef53aefaa5bd, type: 2}
+      dropChance: 0.1
+    - item: {fileID: 11400000, guid: 29d3a90c18f2bc0489f649cbc2c54c69, type: 2}
+      dropChance: 0.15
+    - item: {fileID: 11400000, guid: ec43cb6436910d843a8c819b9e640b56, type: 2}
+      dropChance: 0.15
+    - item: {fileID: 11400000, guid: 982e5acf41056674fabd9ac5ba3cc6d8, type: 2}
+      dropChance: 0.15
+    - item: {fileID: 11400000, guid: e142a6e4693f0df4d8dd2509707f33f4, type: 2}
+      dropChance: 0.15
+    - item: {fileID: 11400000, guid: 16d13962f6cefd645b2f88577ec1375c, type: 2}
+      dropChance: 0.05
+    - item: {fileID: 11400000, guid: 90a68ad66c8bf6a4f84c0a23a8012eb6, type: 2}
+      dropChance: 0.05
+    - item: {fileID: 11400000, guid: da17bfedab8b1824db2e7385a071ca9c, type: 2}
+      dropChance: 0.05
+    - item: {fileID: 11400000, guid: 6534ec6973d2d5f43bb8196a70c6b189, type: 2}
+      dropChance: 0.05
+    - item: {fileID: 11400000, guid: ef45f6e87fcda0c4aa1745b21bd738de, type: 2}
+      dropChance: 0.05
+    - item: {fileID: 11400000, guid: 59e6a7d8c61c2df4297e4dd6c2a8433a, type: 2}
+      dropChance: 0.05
+    chanceToUnlock: 0.25

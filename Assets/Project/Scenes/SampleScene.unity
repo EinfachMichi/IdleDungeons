@@ -504,8 +504,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventorySize: 10
   characterArchive:
-  - {fileID: 1993213165067568111, guid: 99356be1275dc584ca341162dbec01ff, type: 3}
-  - {fileID: 3381504329372253881, guid: 4da4835edaf2892479ab5ef601083ad5, type: 3}
+  - {fileID: 6240003788016408053, guid: 99356be1275dc584ca341162dbec01ff, type: 3}
+  - {fileID: 731751584110216786, guid: 4da4835edaf2892479ab5ef601083ad5, type: 3}
   dungeonArchive:
   - {fileID: 8136619466063267446, guid: 13aa2a53f0f964041ae2e581e0048574, type: 3}
 --- !u!1 &703260715

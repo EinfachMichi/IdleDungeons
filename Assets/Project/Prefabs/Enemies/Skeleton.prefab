@@ -28,8 +28,16 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7513547117938280324, guid: 11991f4775e96ea4a9e494455c9dd6cc, type: 3}
+      propertyPath: attackDamage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7513547117938280324, guid: 11991f4775e96ea4a9e494455c9dd6cc, type: 3}
       propertyPath: experienceDrop
       value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7513547117938280324, guid: 11991f4775e96ea4a9e494455c9dd6cc, type: 3}
+      propertyPath: damage.attackDamage
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7538940952965172462, guid: 11991f4775e96ea4a9e494455c9dd6cc, type: 3}
       propertyPath: m_RootOrder

@@ -7,18 +7,18 @@ public abstract class Unit : MonoBehaviour, ITickable
     public string Name => name;
     public int Level => level;
     public float MaxHealth => maxHealth;
-    public float Health => currentHealth;
-    public float Damage => damage;
-    public float Regeneration => regeneration;
+    public float AttackDamage => attackDamage;
     public float CritChance => critChance;
     public float CritDamage => critDamage;
+    public float Health => currentHealth;
+    public float Regeneration => regeneration;
     public bool IsAlive => isAlive;
     
     [SerializeField] protected new string name;
     [SerializeField] protected int level;
     [SerializeField] protected float maxHealth;
-    [SerializeField] protected float damage;
     [SerializeField] protected float regeneration;
+    [SerializeField] protected float attackDamage;
     [SerializeField] protected float critChance;
     [SerializeField] protected float critDamage;
     protected float currentHealth;
@@ -37,6 +37,11 @@ public abstract class Unit : MonoBehaviour, ITickable
     {
         if (!isAlive) return;
         
+        Regenerate();
+    }
+
+    private void Regenerate()
+    {
         if (currentRegenerationTick >= TicksForRegeneration)
         {
             currentHealth += Regeneration;
@@ -46,23 +51,17 @@ public abstract class Unit : MonoBehaviour, ITickable
         
         currentRegenerationTick++;
     }
-
+    
     public void ApplyDamage(Unit target)
     {
         if (!isAlive) return;
 
-        float realDamage = Damage;
-        float crit = Random.Range(0f, 100f);
-        if (critChance <= crit)
-        {
-            realDamage *= critDamage / 100f;
-        }
-        target.ReceiveDamage(realDamage);
+        target.ReceiveDamage(Damage.RealDamage(this));
     }
 
-    public float ReceiveDamage(float damage)
+    public void ReceiveDamage(float damage)
     {
-        if (!isAlive) return 0;
+        if (!isAlive) return;
         
         currentHealth -= damage;
         if (currentHealth <= 0)
@@ -70,7 +69,6 @@ public abstract class Unit : MonoBehaviour, ITickable
             currentHealth = 0;
             Death();
         }
-        return currentHealth;
     }
 
     protected virtual void Death()

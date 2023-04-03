@@ -22,9 +22,8 @@ public class Weapon : Item
 
     public override void ScaleWithRarity()
     {
-        float mulitplier = GetRarityMultiplier((int) Rarity);
-        attackDamage *= mulitplier;
-        critChance *= mulitplier;
-        critDamage *= mulitplier;
+        attackDamage *= rarityMultiplier;
+        critChance *= rarityMultiplier;
+        critDamage *= rarityMultiplier;
     }
 }

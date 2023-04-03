@@ -22,8 +22,7 @@ public class Armor : Item
     
     public override void ScaleWithRarity()
     {
-        float multiplier = GetRarityMultiplier((int) Rarity);
-        extraHealth *= multiplier;
-        extraRegeneration *= multiplier;
+        extraHealth *= rarityMultiplier;
+        extraRegeneration *= rarityMultiplier;
     }
 }
