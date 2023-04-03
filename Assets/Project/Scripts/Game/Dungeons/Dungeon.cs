@@ -9,6 +9,7 @@ public class Dungeon : MonoBehaviour, ITickable
     public Enemy Enemy => enemy;
     public Character Character => character;
     public Difficullty Difficulty => difficulty;
+    public bool AutoPlay => autoPlay;
 
     private float GoldBonus => character.GoldBonus;
     
@@ -16,17 +17,27 @@ public class Dungeon : MonoBehaviour, ITickable
     [SerializeField] private int enemyLevel;
     [SerializeField] private List<Enemy> enemies;
     [SerializeField] private LootTable lootTable;
+    [SerializeField] private bool autoPlay;
 
     private int currentEnemyIndex;
     private Enemy enemy;
     private Character character;
 
-    public void StartDungeon(Character character)
+    private void Start()
+    {
+        GameManager.Instance.AddToRegister(this);
+    }
+
+    public void EnterDungeon(Character character)
     {
         InitCharacter(character);
+        StartDungeon();
+    }
+
+    private void StartDungeon()
+    {
+        currentEnemyIndex = 0;
         InitEnemy();
-        
-        GameManager.Instance.AddToRegister(this);
     }
     
     public void Tick()
@@ -41,6 +52,11 @@ public class Dungeon : MonoBehaviour, ITickable
         GameManager.Instance.AddLoot(BonusGoldDrop(loot));
         
         print("Dungeon Complete!");
+        if (autoPlay)
+        {
+            StartDungeon();
+            return;
+        }
         LeaveDungeon();
     }
     

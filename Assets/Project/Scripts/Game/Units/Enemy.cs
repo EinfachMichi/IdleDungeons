@@ -20,12 +20,12 @@ public class Enemy : Unit
 
     public void ScaleByLevel(int level)
     {
-        this.level = level;
-        maxHealth *= level;
-        attackDamage *= level;
-        critChance += level;
-        critDamage *= level;
-        regeneration *= level;
+        Level = level;
+        MaxHealth *= level;
+        AttackDamage *= level;
+        CritChance += level;
+        CritDamage *= level;
+        Regeneration *= level;
         goldDrop *= level;
         experienceDrop *= level;
     }

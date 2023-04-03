@@ -5,10 +5,7 @@ public class Character : Unit
 {
     public event Action OnCharacterDeath;
 
-    public float GoldBonus => goldBonus;
-    
     [SerializeField] private float maxExperience;
-    [SerializeField] private float goldBonus;
 
     [Header("Levelup Stats")] 
     [SerializeField] private float lvlup_health = 1;
@@ -17,20 +14,19 @@ public class Character : Unit
     [SerializeField] private float lvlup_critChance = 1f;
     [SerializeField] private float lvlup_critDamage = 10f;
     
-
     private float experience;
-    private int deathCooldown => level * 30;
+    private int deathCooldown => Level * 30;
     private int deathTimer;
-    private EquipmentSlots equipmentSlots;
+
+    private EquipmentInventory equipmentInventory;
 
     protected override void Start()
     {
         base.Start();
-        equipmentSlots = new EquipmentSlots();
-        equipmentSlots.OnItemEquipped += AddItemStats;
-        equipmentSlots.OnItemUnequipped += RemoveItemStats;
+        equipmentInventory.OnItemEquipped += stats.AddStats;
+        equipmentInventory.OnItemUnequipped += stats.RemoveStats;
     }
-    
+
     public override void Tick()
     {
         base.Tick();
@@ -49,7 +45,7 @@ public class Character : Unit
 
     public void Heal()
     {
-        currentHealth = maxHealth;
+        Health = MaxHealth;
         isAlive = true;
     }
 
@@ -64,62 +60,18 @@ public class Character : Unit
 
     private void LevelUp()
     {
-        level++;
+        Level++;
         experience = 0;
         maxExperience += Mathf.Floor(maxExperience / 2);
-        maxHealth += lvlup_health;
-        attackDamage += lvlup_damage;
-        critChance += lvlup_critChance;
-        critDamage += lvlup_critDamage;
-        regeneration += lvlup_regeneration;
+        MaxHealth += lvlup_health;
+        AttackDamage += lvlup_damage;
+        CritChance += lvlup_critChance;
+        CritDamage += lvlup_critDamage;
+        Regeneration += lvlup_regeneration;
         
         Heal();
     }
 
-    private void AddItemStats(Item item)
-    {
-        switch (item.ItemType)
-        {
-            case ItemType.Weapon:
-                Weapon weapon = (Weapon) item;
-                attackDamage += weapon.AttackDamge;
-                critChance += weapon.CritChance;
-                critDamage += weapon.CritDamage;
-                break;
-            case ItemType.Armor:
-                Armor armor = (Armor) item;
-                maxHealth += armor.ExtraHealth;
-                regeneration += armor.ExtraRegeneration;
-                break;
-            case ItemType.Relict:
-                Relict relict = (Relict) item;
-                goldBonus += relict.GoldBonus;
-                break;
-        }
-    }
-
-    private void RemoveItemStats(Item item)
-    {
-        switch (item.ItemType)
-        {
-            case ItemType.Weapon:
-                Weapon weapon = (Weapon) item;
-                attackDamage -= weapon.AttackDamge;
-                critChance -= weapon.CritChance;
-                critDamage -= weapon.CritDamage;
-                break;
-            case ItemType.Armor:
-                Armor armor = (Armor) item;
-                maxHealth -= armor.ExtraHealth;
-                regeneration -= armor.ExtraRegeneration;
-                break;
-            case ItemType.Relict:
-                Relict relict = (Relict) item;
-                goldBonus -= relict.GoldBonus;
-                break;
-        }
-    }
-    
     protected override void Death()
     {
         base.Death();

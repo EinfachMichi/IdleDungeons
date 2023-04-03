@@ -52,6 +52,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1176857777143982447, guid: c806a0bbc1bd1b74d9a3a6db80df29fe, type: 3}
+      propertyPath: autoPlay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1176857777143982447, guid: c806a0bbc1bd1b74d9a3a6db80df29fe, type: 3}
       propertyPath: lootTable
       value: 
       objectReference: {fileID: 11400000, guid: 561ce4406b076ed449be7f1a4b8eae8f, type: 2}

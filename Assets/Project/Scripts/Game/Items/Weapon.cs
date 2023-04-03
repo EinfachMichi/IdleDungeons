@@ -3,11 +3,11 @@ public class Weapon : Item
     public float AttackDamge => attackDamage;
     public float CritChance => critChance;
     public float CritDamage => critDamage;
-    
+
     private float attackDamage;
     private float critChance;
     private float critDamage;
-    
+
     public Weapon(WeaponData data, Rarity rarity)
     {
         Name = data.Name;
@@ -16,7 +16,7 @@ public class Weapon : Item
         attackDamage = data.attackDamage;
         critChance = data.critChance;
         critDamage = data.critDamage;
-        
+
         ScaleWithRarity();
     }
 

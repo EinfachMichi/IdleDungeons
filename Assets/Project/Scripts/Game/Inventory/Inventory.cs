@@ -1,27 +1,27 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class Inventory<T>
+public class Inventory<T> where T : Item
 {
-    public int Size => size;
+    public int Length => length;
 
-    private int size;
-    private Slot<T>[] slots;
-    
-    public Inventory(int size)
+    private int length;
+    private List<Slot<T>> slots;
+
+    public Inventory(int length)
     {
-        this.size = size;
-        slots = new Slot<T>[size];
+        this.length = length;
+        slots = new();
         
-        InitInventory();
+        InitInventory(length);
     }
 
-    private void InitInventory()
+    private void InitInventory(int length)
     {
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < length; i++)
         {
-            Slot<T> newSlot = new Slot<T>();
-            slots[i] = newSlot;
+            slots.Add(new Slot<T>());
         }
     }
     
@@ -38,19 +38,6 @@ public class Inventory<T>
         Debug.Log("Error: No inventory Space!");
     }
 
-    public int ItemCount()
-    {
-        int count = 0;
-        foreach (Slot<T> slot in slots)
-        {
-            if (slot.Item != null)
-            {
-                count++;
-            }
-        }
-        return count;
-    }
-
     public List<T> ToList()
     {
         List<T> list = new List<T>();
@@ -59,11 +46,21 @@ public class Inventory<T>
             if(slot.Item == null) continue;
             list.Add(slot.Item);
         }
-
         return list;
     }
+
+    public void Expand(int amount)
+    {
+        length += amount;
+        InitInventory(amount);
+    }
+
+    public void SortByNameAscending() => slots.OrderBy(t => t.Item.Name);
+    public void SortByNameDescending() => slots.OrderByDescending(t => t.Item.Name);
+    public void SortByRarityAscending() => slots.OrderBy(t => t.Item.Rarity);
+    public void SortByRarityDescending() => slots.OrderByDescending(t => t.Item.Rarity);
     
-    private class Slot<T>
+    private class Slot<T> where T : Item
     {
         public T Item;
     }

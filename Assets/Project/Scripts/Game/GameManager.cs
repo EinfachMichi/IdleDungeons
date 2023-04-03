@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
         
         Dungeon dungeon = Instantiate(dungeonArchive[dungeonIndex]);
         dungeon.name = $"Dungeon Difficulty: {dungeon.Difficulty}";
-        dungeon.StartDungeon(ownedCharacters[characterIndex]);
+        dungeon.EnterDungeon(ownedCharacters[characterIndex]);
         runningDungeons.Add(dungeon);
         dungeon.OnDungeonDone += ExitDungeon;
     }
