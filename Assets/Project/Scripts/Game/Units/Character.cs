@@ -24,8 +24,8 @@ public class Character : Unit
     {
         base.Start();
         equipmentInventory = new EquipmentInventory();
-        equipmentInventory.OnItemEquipped += stats.AddStats;
-        equipmentInventory.OnItemUnequipped += stats.RemoveStats;
+        equipmentInventory.OnItemEquipped += AddStatsFromItem;
+        equipmentInventory.OnItemUnequipped += RemoveStatsFromItem;
     }
 
     public override void Tick()
@@ -46,7 +46,7 @@ public class Character : Unit
 
     public void Heal()
     {
-        Health = MaxHealth;
+        currentHealth = MaxHealth;
         isAlive = true;
     }
 
@@ -61,18 +61,43 @@ public class Character : Unit
 
     private void LevelUp()
     {
-        Level++;
+        level++;
         experience = 0;
         maxExperience += Mathf.Floor(maxExperience / 2);
-        MaxHealth += lvlup_health;
-        AttackDamage += lvlup_damage;
-        CritChance += lvlup_critChance;
-        CritDamage += lvlup_critDamage;
-        Regeneration += lvlup_regeneration;
+        maxHealth += lvlup_health;
+        attackDamage += lvlup_damage;
+        critChance += lvlup_critChance;
+        critDamage += lvlup_critDamage;
+        regeneration += lvlup_regeneration;
         
         Heal();
     }
 
+    private void AddStatsFromItem(Item item) => ChangeStats(item, 1f);
+    private void RemoveStatsFromItem(Item item) => ChangeStats(item, -1f);
+
+    private void ChangeStats(Item item, float direction)
+    {
+        switch (item.ItemType)
+        {
+            case ItemType.Weapon:
+                Weapon weapon = (Weapon) item;
+                attackDamage += weapon.AttackDamge * direction;
+                critDamage += weapon.CritDamage * direction;
+                critChance += weapon.CritChance * direction;
+                break;
+            case ItemType.Armor:
+                Armor armor = (Armor) item;
+                maxHealth += armor.ExtraHealth * direction;
+                regeneration += armor.ExtraRegeneration * direction;
+                break;
+            case ItemType.Relict:
+                Relict relict = (Relict) item;
+                goldBonus += relict.GoldBonus * direction;
+                break;
+        }
+    }
+    
     protected override void Death()
     {
         base.Death();

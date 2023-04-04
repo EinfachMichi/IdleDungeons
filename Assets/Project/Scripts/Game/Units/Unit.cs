@@ -5,61 +5,32 @@ public abstract class Unit : MonoBehaviour, ITickable
 {
     protected const int TicksForRegeneration = 4;
 
-    public int Level
-    {
-        get => stats.level;
-        protected set => stats.level = value;
-    }
-    public string Name
-    {
-        get => stats.name;
-        protected set => stats.name = value;
-    }
-    public float MaxHealth
-    {
-        get => stats.maxHealth;
-        protected set => stats.maxHealth = value;
-    }
-    public float Health
-    {
-        get => stats.Health;
-        protected set => stats.Health = value;
-    }
-    public float AttackDamage
-    {
-        get => stats.attackDamage;
-        protected set => stats.attackDamage = value;
-    }
-    public float CritChance
-    {
-        get => stats.critChance;
-        protected set => stats.critChance = value;
-    }
-    public float CritDamage
-    {
-        get => stats.critDamage;
-        protected set => stats.critDamage = value;
-    }
-    public float Regeneration
-    {
-        get => stats.regeneration;
-        protected set => stats.regeneration = value;
-    }
-    public float GoldBonus
-    {
-        get => stats.goldBonus;
-        protected set => stats.goldBonus = value;
-    }
+    public int Level => level;
+    public string Name => name;
+    public float MaxHealth => maxHealth;
+    public float Health => currentHealth;
+    public float AttackDamage => attackDamage;
+    public float CritChance => critChance;
+    public float CritDamage => critDamage;
+    public float Regeneration => regeneration;
+    public float GoldBonus => goldBonus;
     public bool IsAlive => isAlive;
 
-    [SerializeField] protected UnitStats stats;
-    
+    [SerializeField] protected string name;
+    [SerializeField] protected int level;
+    [SerializeField] protected float maxHealth;
+    [SerializeField] protected float regeneration;
+    [SerializeField] protected float attackDamage;
+    [SerializeField] protected float critChance;
+    [SerializeField] protected float critDamage;
+    [SerializeField] protected float goldBonus;
+    protected float currentHealth;
     protected bool isAlive = true;
     protected int currentRegenerationTick;
 
     protected virtual void Start()
     {
-        Health = MaxHealth;
+        currentHealth = MaxHealth;
         
         GameManager.Instance.AddToRegister(this);
     }
@@ -75,8 +46,8 @@ public abstract class Unit : MonoBehaviour, ITickable
     {
         if (currentRegenerationTick >= TicksForRegeneration)
         {
-            Health += Regeneration;
-            if (Health >= MaxHealth) Health = MaxHealth;
+            currentHealth += Regeneration;
+            if (Health >= MaxHealth) currentHealth = MaxHealth;
             currentRegenerationTick = 0;
         }
         currentRegenerationTick++;
@@ -93,10 +64,10 @@ public abstract class Unit : MonoBehaviour, ITickable
     {
         if (!isAlive) return;
         
-        Health -= damage;
+        currentHealth -= damage;
         if (Health <= 0)
         {
-            Health = 0;
+            currentHealth = 0;
             Death();
         }
     }
@@ -105,58 +76,5 @@ public abstract class Unit : MonoBehaviour, ITickable
     {
         isAlive = false;
         print($"{Name} died.");
-    }
-}
-
-[Serializable]
-public struct UnitStats
-{
-    public float Health
-    {
-        get => currentHealth;
-        set => currentHealth = value;
-    }
-    
-    public string name;
-    public int level;
-    public float maxHealth;
-    public float regeneration;
-    public float attackDamage;
-    public float critChance;
-    public float critDamage;
-    public float goldBonus;
-    
-    private float currentHealth;
-
-    public void AddStats(Item item)
-    {
-        ChangeStats(item, 1f);
-    }
-
-    public void RemoveStats(Item item)
-    {
-        ChangeStats(item, -1f);
-    }
-
-    private void ChangeStats(Item item, float direction)
-    {
-        switch (item.ItemType)
-        {
-            case ItemType.Weapon:
-                Weapon weapon = (Weapon) item;
-                attackDamage += weapon.AttackDamge * direction;
-                critChance += weapon.CritChance * direction;
-                critDamage += weapon.CritDamage * direction;
-                break;
-            case ItemType.Armor:
-                Armor armor = (Armor) item;
-                maxHealth += armor.ExtraHealth * direction;
-                regeneration += armor.ExtraRegeneration * direction;
-                break;
-            case ItemType.Relict:
-                Relict relict = (Relict) item;
-                goldBonus += relict.GoldBonus * direction;
-                break;
-        }
     }
 }

@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
     private float gold;
 
     public Inventory<Item> Inventory => inventory;
-    [SerializeField] private int inventorySize;
     private Inventory<Item> inventory;
 
     #region Events / Tick-Handeling
@@ -22,7 +21,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        inventory = new Inventory<Item>(inventorySize);
+        inventory = new Inventory<Item>();
     }
 
     private void Update()
@@ -56,11 +55,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<Character> characterArchive;
     public List<Character> OwnedCharacters => ownedCharacters;
     private List<Character> ownedCharacters = new();
-    public int OwnedCharacterCount => ownedCharacters.Count;
 
     public void UnlockNewCharacter()
     {
-        if (OwnedCharacterCount >= characterArchive.Count) return;
+        if (ownedCharacters.Count >= characterArchive.Count) return;
         
         Character newCharacter = Instantiate(characterArchive[ownedCharacters.Count]);
         newCharacter.name = newCharacter.Name;

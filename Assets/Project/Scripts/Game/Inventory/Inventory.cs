@@ -6,12 +6,11 @@ public class Inventory<T> where T : Item
 {
     public int Length => length;
 
-    private int length;
+    private int length = 18;
     private List<Slot<T>> slots;
 
-    public Inventory(int length)
+    public Inventory()
     {
-        this.length = length;
         slots = new();
         
         InitInventory(length);
