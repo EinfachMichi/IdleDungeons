@@ -22,8 +22,8 @@ public abstract class Unit : MonoBehaviour, ITickable
     }
     public float Health
     {
-        get => stats.currentHealth;
-        protected set => stats.currentHealth = value;
+        get => stats.Health;
+        protected set => stats.Health = value;
     }
     public float AttackDamage
     {
@@ -111,6 +111,12 @@ public abstract class Unit : MonoBehaviour, ITickable
 [Serializable]
 public struct UnitStats
 {
+    public float Health
+    {
+        get => currentHealth;
+        set => currentHealth = value;
+    }
+    
     public string name;
     public int level;
     public float maxHealth;
@@ -118,8 +124,9 @@ public struct UnitStats
     public float attackDamage;
     public float critChance;
     public float critDamage;
-    public float currentHealth;
     public float goldBonus;
+    
+    private float currentHealth;
 
     public void AddStats(Item item)
     {

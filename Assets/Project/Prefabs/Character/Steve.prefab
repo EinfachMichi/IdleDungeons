@@ -59,5 +59,9 @@ PrefabInstance:
       propertyPath: name
       value: Steve
       objectReference: {fileID: 0}
+    - target: {fileID: 1993213165067568111, guid: cd2ec2dcae61e514db4790257155decf, type: 3}
+      propertyPath: stats.name
+      value: Steve
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd2ec2dcae61e514db4790257155decf, type: 3}

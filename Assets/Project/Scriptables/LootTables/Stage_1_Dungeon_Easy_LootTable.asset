@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1209a230ae524b6096e1b2ec274ddb7b, type: 3}
   m_Name: Stage_1_Dungeon_Easy_LootTable
   m_EditorClassIdentifier: 
-  goldRange: {x: 5, y: 10}
+  goldRange: {x: 2, y: 5}
   itemPools:
   - items:
     - item: {fileID: 11400000, guid: 133dc27c9d3353c46bd5f03efd20e5dd, type: 2}

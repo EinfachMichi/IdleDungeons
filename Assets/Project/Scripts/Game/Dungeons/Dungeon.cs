@@ -70,6 +70,7 @@ public class Dungeon : MonoBehaviour, ITickable
     private void LeaveDungeon()
     {
         Character.gameObject.transform.SetParent(null);
+        character.OnCharacterDeath -= OnCharacterDeath;
         OnDungeonDone?.Invoke(this);
     }
     

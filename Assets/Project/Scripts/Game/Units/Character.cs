@@ -23,6 +23,7 @@ public class Character : Unit
     protected override void Start()
     {
         base.Start();
+        equipmentInventory = new EquipmentInventory();
         equipmentInventory.OnItemEquipped += stats.AddStats;
         equipmentInventory.OnItemUnequipped += stats.RemoveStats;
     }

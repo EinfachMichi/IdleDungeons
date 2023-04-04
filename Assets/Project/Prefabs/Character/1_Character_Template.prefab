@@ -44,15 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d94c7eab476d82447bbc1f3fc8426143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
-  level: 1
-  maxHealth: 20
-  regeneration: 1
-  attackDamage: 1
-  critChance: 5
-  critDamage: 100
+  stats:
+    name: 
+    level: 1
+    maxHealth: 20
+    regeneration: 1
+    attackDamage: 1
+    critChance: 5
+    critDamage: 100
+    currentHealth: 20
+    goldBonus: 0
   maxExperience: 50
-  goldBonus: 0
   lvlup_health: 1
   lvlup_damage: 0.5
   lvlup_regeneration: 0.2

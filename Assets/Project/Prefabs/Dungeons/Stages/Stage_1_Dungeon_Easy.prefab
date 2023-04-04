@@ -53,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1176857777143982447, guid: c806a0bbc1bd1b74d9a3a6db80df29fe, type: 3}
       propertyPath: autoPlay
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1176857777143982447, guid: c806a0bbc1bd1b74d9a3a6db80df29fe, type: 3}
       propertyPath: lootTable
@@ -69,8 +69,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1176857777143982447, guid: c806a0bbc1bd1b74d9a3a6db80df29fe, type: 3}
       propertyPath: enemies.Array.size
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 1176857777143982447, guid: c806a0bbc1bd1b74d9a3a6db80df29fe, type: 3}
+      propertyPath: enemies.Array.data[3]
+      value: 
+      objectReference: {fileID: 9064549745924342411, guid: 56d1919243df1274bb55be430cc0a508, type: 3}
+    - target: {fileID: 1176857777143982447, guid: c806a0bbc1bd1b74d9a3a6db80df29fe, type: 3}
+      propertyPath: enemies.Array.data[4]
+      value: 
+      objectReference: {fileID: 9064549745924342411, guid: 56d1919243df1274bb55be430cc0a508, type: 3}
     - target: {fileID: 2106091037996525572, guid: c806a0bbc1bd1b74d9a3a6db80df29fe, type: 3}
       propertyPath: m_Name
       value: Stage_1_Dungeon_Easy

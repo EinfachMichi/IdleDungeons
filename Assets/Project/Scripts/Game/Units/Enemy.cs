@@ -26,7 +26,7 @@ public class Enemy : Unit
         CritChance += level;
         CritDamage *= level;
         Regeneration *= level;
-        goldDrop *= level;
+        goldDrop = goldDrop * level + (GoldBonus + level - 1);
         experienceDrop *= level;
     }
 }

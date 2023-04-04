@@ -28,6 +28,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7513547117938280324, guid: 11991f4775e96ea4a9e494455c9dd6cc, type: 3}
+      propertyPath: stats.name
+      value: Skeleton
+      objectReference: {fileID: 0}
+    - target: {fileID: 7513547117938280324, guid: 11991f4775e96ea4a9e494455c9dd6cc, type: 3}
       propertyPath: attackDamage
       value: 2
       objectReference: {fileID: 0}
@@ -36,8 +40,24 @@ PrefabInstance:
       value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 7513547117938280324, guid: 11991f4775e96ea4a9e494455c9dd6cc, type: 3}
+      propertyPath: stats.maxHealth
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7513547117938280324, guid: 11991f4775e96ea4a9e494455c9dd6cc, type: 3}
+      propertyPath: stats.critChance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7513547117938280324, guid: 11991f4775e96ea4a9e494455c9dd6cc, type: 3}
+      propertyPath: stats.attackDamage
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7513547117938280324, guid: 11991f4775e96ea4a9e494455c9dd6cc, type: 3}
       propertyPath: damage.attackDamage
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7513547117938280324, guid: 11991f4775e96ea4a9e494455c9dd6cc, type: 3}
+      propertyPath: stats.currentHealth
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7538940952965172462, guid: 11991f4775e96ea4a9e494455c9dd6cc, type: 3}
       propertyPath: m_RootOrder
